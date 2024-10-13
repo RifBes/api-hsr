@@ -1,0 +1,128 @@
+[
+  {
+    "id": "1",
+    "name": "Destruction",
+    "aeon": "Nanook",
+    "description": "Those who follow the \"Destruction\" Path admire recklessness, anger, and destructive behavior.",
+    "img": ""
+  },
+  {
+    "id": "2",
+    "name": "Hunt",
+    "aeon": "Lan",
+    "description": "Those who follow the \"Hunt\" Path admire determination, ruthlessness, and tenacious behavior.",
+    "img": ""
+  },
+  {
+    "id": "3",
+    "name": "Erudition",
+    "aeon": "Nous",
+    "description": "Those who follow the \"Erudition\" Path admire thinking, logic, and strategic behavior.",
+    "img": ""
+  },
+  {
+    "id": "4",
+    "name": "Harmony",
+    "aeon": "Xipe",
+    "description": "Those who follow the \"Harmony\" Path admire understanding, support, and cooperative behavior.",
+    "img": ""
+  },
+  {
+    "id": "5",
+    "name": "Nihility",
+    "aeon": "IX",
+    "description": "Those who follow the \"Nihility\" Path admire laziness, exhaustion, and meaningless behavior.",
+    "img": ""
+  },
+  {
+    "id": "6",
+    "name": "Preservation",
+    "aeon": "Qlipoth",
+    "description": "Those who follow the \"Preservation\" Path admire patience, sacrifice, and defensive behavior.",
+    "img": ""
+  },
+  {
+    "id": "7",
+    "name": "Abundance",
+    "aeon": "Yaoshi",
+    "description": "Those who follow the \"Abundance\" Path admire selflessness, altruism, and healing behavior.",
+    "img": ""
+  },
+  {
+    "id": "8",
+    "name": "Trailblaze",
+    "aeon": "Akivili",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "9",
+    "name": "Elation",
+    "aeon": "Aha",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "10",
+    "name": "Voracity",
+    "aeon": "Oroboros",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "11",
+    "name": "Beauty",
+    "aeon": "Idrila",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "12",
+    "name": "Permanence",
+    "aeon": "Long",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "13",
+    "name": "Propagation",
+    "aeon": "Tayzzyronth",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "14",
+    "name": "Enigmata",
+    "aeon": "Mythus",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "15",
+    "name": "Equilibrium",
+    "aeon": "HooH",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "16",
+    "name": "Finality",
+    "aeon": "Terminus",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "17",
+    "name": "Remembrance",
+    "aeon": "Fuli",
+    "description": "",
+    "img": ""
+  },
+  {
+    "id": "18",
+    "name": "Order",
+    "aeon": "Ena",
+    "description": "",
+    "img": ""
+  }
+]

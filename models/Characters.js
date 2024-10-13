@@ -1,20 +1,24 @@
 import mongoose from "mongoose";
 
-export const eidolonSchema = new mongoose.Schema({
-  number: Number,
-  name: String,
-  description: String,
-  image: String,
+const characterSchema = new mongoose.Schema({
+  id: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  path: { type: String, required: true },
+  element: { type: String, required: true },
+  rarity: { type: String, required: true },
+  image: { type: String, default: "" },
+  eidolons: [
+    {
+      number: { type: String, required: true },
+      name: { type: String, required: true },
+      description: { type: String, required: true },
+      image: { type: String, default: "" },
+    },
+  ],
 });
 
-export const characterSchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  path: String,
-  element: String,
-  rarity: String,
-  image: String,
-  eidolons: [eidolonSchema],
-});
-
-export const Character = mongoose.model("Character", characterSchema);
+export const Character = mongoose.model(
+  "Characters",
+  characterSchema,
+  "characters"
+);
