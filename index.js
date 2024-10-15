@@ -5,7 +5,7 @@ import cors from "cors";
 
 import characterRoutes from "./routes/characters.js";
 import pathsRoutes from "./routes/paths.js";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
 const app = express();
 
@@ -16,22 +16,23 @@ const MONGO_URL = process.env.MONGO_URL;
 // using json-data in our application
 app.use(express.json());
 
-mongoose.connect(MONGO_URL);
+// mongoose.connect(MONGO_URL);
 
-mongoose.connection.on("connected", () => {
-  console.log("Mongoose connected");
-  app.use(cors({ origin: "*" }));
+// mongoose.connection.on("connected", () => {
+//   console.log("Mongoose connected");
+// });
 
-  app.get("/", (req, res) => res.send("HSR API WORKED"));
+// mongoose.connection.on("error", () => {
+//   console.log("Mongoose connection error: ", error);
+// });
 
-  app.use("/characters", characterRoutes);
-  app.use("/paths", pathsRoutes);
+app.use(cors({ origin: "*" }));
 
-  app.listen(PORT, () => {
-    console.log(`Server is running at port ${PORT}`);
-  });
-});
+app.get("/", (req, res) => res.send("HSR API WORKED"));
 
-mongoose.connection.on("error", () => {
-  console.log("Mongoose connection error: ", error);
+app.use("/characters", characterRoutes);
+app.use("/paths", pathsRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running at port ${PORT}`);
 });

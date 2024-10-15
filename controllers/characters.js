@@ -1,139 +1,79 @@
-import mongoose from "mongoose";
+import { queries } from "../queries/index.js";
+import { pool } from "../db.js";
 
-import fs from "fs";
-import path from "path";
-import { dataDirectory } from "../config.js";
-import { Character } from "../models/Characters.js";
+const queryDatabase = async (query, params = null) => {
+  try {
+    if (!params) {
+      return await pool.query(query);
+    } else {
+      return await pool.query(query, [params]);
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 
-const characters = fs.readFileSync(
-  path.join(dataDirectory, "characters.json"),
-  "utf8"
-);
-const charactersData = JSON.parse(characters);
+const processResult = (rows) => {
+  const characters = [];
+  rows.forEach((row) => {
+    const existingCharacter = characters.find(
+      (character) => character.id === row.id
+    );
+    if (existingCharacter) {
+      existingCharacter.eidolons.push({
+        number: row.number,
+        name: row.eidolon_name,
+        description: row.description,
+        image: row.eidolon_image,
+      });
+    } else {
+      characters.push({
+        id: row.id,
+        name: row.name,
+        path: row.path,
+        element: row.element,
+        rarity: row.rarity,
+        image: row.image,
+        eidolons: [
+          {
+            number: row.number,
+            name: row.eidolon_name,
+            description: row.description,
+            image: row.eidolon_image,
+          },
+        ],
+      });
+    }
+  });
+  return characters;
+};
 
 export const getCharacter = async (req, res) => {
   try {
-    const charactersDB = await Character.find();
-    let { path, element, rarity } = req.query;
-    // console.log(characters);
-    const filterFn = (character) => {
-      const conditions = [];
-      if (path)
-        conditions.push(character.path.toLowerCase() === path.toLowerCase());
-      if (element)
-        conditions.push(
-          character.element.toLowerCase() === element.toLowerCase()
-        );
-      if (rarity)
-        conditions.push(
-          character.rarity.toLowerCase() === rarity.toLowerCase()
-        );
-      return conditions.every(Boolean);
-    };
-    const filteredCharacters = charactersDB.filter(filterFn);
-    if (filteredCharacters.length > 0) {
-      res.send(filteredCharacters);
-    } else {
-      res.status(404).send({ message: "Characters not found" });
-    }
-
-    // return res.status(200).json(characters);
+    const result = await queryDatabase(queries.getCharacter_DB);
+    const characters = processResult(result.rows);
+    res.status(200).json(characters);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "characters not found", error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  // let { path, element, rarity } = req.query;
-  // const filterFn = (character) => {
-  //   const conditions = [];
-  //   if (path)
-  //     conditions.push(character.path.toLowerCase() === path.toLowerCase());
-  //   if (element)
-  //     conditions.push(
-  //       character.element.toLowerCase() === element.toLowerCase()
-  //     );
-  //   if (rarity)
-  //     conditions.push(character.rarity.toLowerCase() === rarity.toLowerCase());
-  //   return conditions.every(Boolean);
-  // };
-  // const filteredCharacters = charactersData.filter(filterFn);
-  // if (filteredCharacters.length > 0) {
-  //   res.send(filteredCharacters);
-  // } else {
-  //   res.status(404).send({ message: "Characters not found" });
-  // }
 };
 
 export const getCharacterByID = async (req, res) => {
-  try {
-    const charactersDB = await Character.find();
-    const { id } = req.params;
-    let character = "";
+  const { id } = req.params;
 
+  try {
     if (isNaN(id)) {
-      character = charactersDB.find(
-        (character) => character.name.toLowerCase() === id.toLowerCase()
-      );
+      const result = await queryDatabase(queries.getCharacterByName_DB, id);
+      const characters = processResult(result.rows);
+      res.status(200).json(characters);
     } else {
-      character = charactersDB.find((character) => character.id === id);
-    }
-    if (character) {
-      res.send(character);
-    } else {
-      res.status(404).send({ message: "Character not found" });
+      const result = await queryDatabase(queries.getCharacterByID_DB, id);
+      const characters = processResult(result.rows);
+      res.status(200).json(characters);
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "characters not found", error: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-  // const { id } = req.params;
-  // let character = "";
-
-  // if (isNaN(id)) {
-  //   character = charactersData.find(
-  //     (character) => character.name.toLowerCase() === id.toLowerCase()
-  //   );
-  // } else {
-  //   character = charactersData.find((character) => character.id === id);
-  // }
-  // if (character) {
-  //   res.send(character);
-  // } else {
-  //   res.status(404).send({ message: "Character not found" });
-  // }
-};
-
-export const getCharacterByName = async (req, res) => {
-  try {
-    const charactersDB = await Character.find();
-    const { name } = req.params;
-
-    const characterByName = charactersDB.find(
-      (character) =>
-        character.name.toLowerCase().replace(/\s+/g, "") === name.toLowerCase()
-    );
-
-    if (characterByName) {
-      res.send(characterByName);
-    } else {
-      res.status(404).send({ message: "Character not found" });
-    }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "characters not found", error: error.message });
-  }
-  // const { name } = req.params;
-
-  // const characterByName = charactersData.find(
-  //   (character) =>
-  //     character.name.toLowerCase().replace(/\s+/g, "") === name.toLowerCase()
-  // );
-
-  // if (characterByName) {
-  //   res.send(characterByName);
-  // } else {
-  //   res.status(404).send({ message: "Character not found" });
-  // }
 };

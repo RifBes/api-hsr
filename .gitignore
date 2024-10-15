@@ -10,11 +10,15 @@ lerna-debug.log*
 node_modules/
 http/
 .env
+old/
+models/
 .DS_Store
 dist
 dist-ssr
 coverage
 *.local
+
+QUERY.md
 
 
 # Editor directories and files
