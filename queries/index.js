@@ -1,2 +1,3 @@
 import * as characterConstants from "./characters.js";
-export const queries = { ...characterConstants };
+import * as relicsConstants from "./relics.js";
+export const queries = { ...characterConstants, ...relicsConstants };

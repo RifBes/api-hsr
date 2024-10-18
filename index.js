@@ -5,6 +5,7 @@ import cors from "cors";
 
 import characterRoutes from "./routes/characters.js";
 import pathsRoutes from "./routes/paths.js";
+import relicsRoutes from "./routes/relic.js";
 // import mongoose from "mongoose";
 
 const app = express();
@@ -32,6 +33,7 @@ app.get("/", (req, res) => res.send("HSR API WORKED"));
 
 app.use("/characters", characterRoutes);
 app.use("/paths", pathsRoutes);
+app.use("/relics", relicsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
