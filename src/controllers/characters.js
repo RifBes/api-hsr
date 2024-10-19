@@ -1,5 +1,5 @@
-import { queries } from "../queries/index.js";
 import { pool } from "../db.js";
+import { queries } from "../queries/index.js";
 
 const queryDatabase = async (query, params = null) => {
   try {

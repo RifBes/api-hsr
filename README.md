@@ -11,13 +11,14 @@
 6) /characters?rarity={number} - get characters by element 
 7) /characters?path={name}&element={name}&rarity={number} - get characters by element AND path + DB
 8) /elements/ - get all element
+1) /paths/ - get all path 
 
 1. /characters/random/ - Получить персонажа рандомно
 
 1) /relics/ - get all relics
 
 ### TO-DO:
-1) /paths/ - get all path 
 3) /cones/ - get all cones
+Допилить все 
 
 Придумать как с картинками сделать
