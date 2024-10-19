@@ -50,9 +50,24 @@ const processResult = (rows) => {
 
 export const getCharacter = async (req, res) => {
   try {
+    let { path, element, rarity } = req.query;
     const result = await queryDatabase(queries.getCharacter_DB);
     const characters = processResult(result.rows);
-    res.status(200).json(characters);
+    // --------------------------------
+    const filterFn = (character) => {
+      const conditions = [];
+      if (path)
+        conditions.push(character.path.toLowerCase() === path.toLowerCase());
+      if (element)
+        conditions.push(
+          character.element.toLowerCase() === element.toLowerCase()
+        );
+      if (rarity) conditions.push(character.rarity === Number(rarity));
+      return conditions.every(Boolean);
+    };
+    const filteredCharacters = characters.filter(filterFn);
+    res.status(200).json(filteredCharacters);
+    // --------------------------------
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -72,6 +87,21 @@ export const getCharacterByID = async (req, res) => {
       const characters = processResult(result.rows);
       res.status(200).json(characters);
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getCharacterRandom = async (req, res) => {
+  try {
+    const result = await queryDatabase(queries.getCharacter_DB);
+    const characters = processResult(result.rows);
+
+    const randomId = Math.floor(Math.random() * characters.length) + 1;
+    const character = characters.filter((char) => char.id === randomId);
+
+    res.status(200).json(character);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

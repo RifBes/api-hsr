@@ -1,10 +1,12 @@
-import fs from "fs";
-import path from "path";
-import { dataDirectory } from "../config.js";
+import { queries } from "../queries/index.js";
+import { pool } from "../db.js";
 
-const paths = fs.readFileSync(path.join(dataDirectory, "paths.json"), "utf8");
-const pathsData = JSON.parse(paths);
-
-export const getPaths = (req, res) => {
-  res.send(pathsData);
+export const getPaths = async (req, res) => {
+  try {
+    const result = await pool.query(queries.getPaths_DB);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
