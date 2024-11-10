@@ -11,7 +11,8 @@ SELECT
   e.description, 
   e.image AS eidolon_image
 FROM characters c
-LEFT JOIN eidolons e ON c.id = e.character_id`;
+LEFT JOIN eidolons e ON c.id = e.character_id
+ORDER BY id ASC`;
 
 export const getCharacterByID_DB = `
 SELECT 

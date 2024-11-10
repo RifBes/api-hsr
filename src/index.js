@@ -19,6 +19,7 @@ app.use("/characters", allRoutes.characterRoutes);
 app.use("/paths", allRoutes.pathsRoutes);
 app.use("/elements", allRoutes.elementsRoutes);
 app.use("/relics", allRoutes.relicsRoutes);
+app.use("/cones", allRoutes.conesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);

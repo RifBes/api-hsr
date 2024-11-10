@@ -19,6 +19,7 @@ coverage
 *.local
 
 QUERY.md
+NOTES.md
 db_schema.png
 
 

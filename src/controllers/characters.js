@@ -52,6 +52,7 @@ export const getCharacter = async (req, res) => {
   try {
     let { path, element, rarity } = req.query;
     const result = await queryDatabase(queries.getCharacter_DB);
+    // const characters = result.rows;
     const characters = processResult(result.rows);
     // --------------------------------
     const filterFn = (character) => {
@@ -76,7 +77,6 @@ export const getCharacter = async (req, res) => {
 
 export const getCharacterByID = async (req, res) => {
   const { id } = req.params;
-
   try {
     if (isNaN(id)) {
       const result = await queryDatabase(queries.getCharacterByName_DB, id);
