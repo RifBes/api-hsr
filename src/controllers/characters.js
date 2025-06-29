@@ -2,14 +2,22 @@ import { pool } from "../db.js";
 import { queries } from "../queries/index.js";
 
 const queryDatabase = async (query, params = null) => {
+  if (!pool) {
+    throw new Error("Database pool is not initialized");
+  }
+
   try {
-    if (!params) {
-      return await pool.query(query);
-    } else {
-      return await pool.query(query, [params]);
-    }
+    const queryParams = Array.isArray(params)
+      ? params
+      : params
+      ? [params]
+      : null;
+
+    return queryParams
+      ? await pool.query(query, queryParams)
+      : await pool.query(query);
   } catch (error) {
-    throw error;
+    throw new Error(`Database query failed: ${error.message}. Query: ${query}`);
   }
 };
 
