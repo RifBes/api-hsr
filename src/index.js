@@ -13,13 +13,13 @@ app.use(express.json());
 
 app.use(cors({ origin: "*" }));
 
-app.get("/", (req, res) => res.send("HSR API WORKED"));
+app.use("/api/characters", allRoutes.characterRoutes);
+app.use("/api/paths", allRoutes.pathsRoutes);
+app.use("/api/elements", allRoutes.elementsRoutes);
+app.use("/api/relics", allRoutes.relicsRoutes);
+app.use("/api/cones", allRoutes.conesRoutes);
 
-app.use("/characters", allRoutes.characterRoutes);
-app.use("/paths", allRoutes.pathsRoutes);
-app.use("/elements", allRoutes.elementsRoutes);
-app.use("/relics", allRoutes.relicsRoutes);
-app.use("/cones", allRoutes.conesRoutes);
+app.get("/", (req, res) => res.send("HSR API WORKED"));
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
