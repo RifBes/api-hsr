@@ -19,6 +19,10 @@ app.use("/api/elements", allRoutes.elementsRoutes);
 app.use("/api/relics", allRoutes.relicsRoutes);
 app.use("/api/cones", allRoutes.conesRoutes);
 
+app.get("/test", (req, res) => {
+  res.json({ simple: "test" });
+});
+
 app.get("/", (req, res) => res.send("HSR API WORKED"));
 
 app.listen(PORT, () => {
