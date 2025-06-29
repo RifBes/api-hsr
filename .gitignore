@@ -34,3 +34,4 @@ db_schema.png
 *.sw?
 
 *.tsbuildinfo
+.vercel
